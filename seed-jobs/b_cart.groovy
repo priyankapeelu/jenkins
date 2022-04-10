@@ -7,7 +7,7 @@ multibranchPipelineJob('CI-Pipelines/cart') {
     }
     orphanedItemStrategy {
     discardOldItems {
-        numTokeep(20)
+        numToKeep(20)
         }
     }
 }
