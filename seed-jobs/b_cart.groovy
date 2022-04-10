@@ -5,7 +5,7 @@ multibranchPipelineJob('CI-Pipelines/cart') {
             remote('https://github.com/priyankapeelu/cart.git')
         }
     }
-    orphanendItemStrategy {
+    orphanedItemStrategy {
         discardOldItems {
             numTokeep(20)
         }
