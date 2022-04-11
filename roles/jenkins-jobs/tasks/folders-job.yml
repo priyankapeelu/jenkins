@@ -5,7 +5,7 @@
 
 - name: update Dir template
   template:
-    src: folders-job.yml
+    src: folders-job.xml
     dest: /tmp/job.xml
 
 - name: create a directory
