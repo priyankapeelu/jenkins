@@ -25,9 +25,9 @@
                     <id>11111</id>
                     <apiUri>https://api.github.com</apiUri>
                     <credentialsId>GitHub</credentialsId>
-                    <repoOwner>raghudevopsb63</repoOwner>
+                    <repoOwner>priyankapeelu</repoOwner>
                     <repository>{{item.repoName}}</repository>
-                    <repositoryUrl>https://github.com/raghudevopsb63/{{item.repoName}}</repositoryUrl>
+                    <repositoryUrl>https://github.com/priyankapeelu/{{item.repoName}}</repositoryUrl>
                     <traits>
                         <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
                             <strategyId>1</strategyId>
