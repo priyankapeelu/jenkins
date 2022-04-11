@@ -1,17 +1,17 @@
-- name: Check if Dir exists
+- name: Check if dir exists
   shell: "{{JENKINS_CLI_PREFIX}} get-job {{item.name}}"
   ignore_errors: true
   register: check_dir
 
-- name: update Dir template
+- name: Update Dir Template
   template:
     src: folders-job.xml
     dest: /tmp/job.xml
 
-- name: create a directory
+- name: Create a Directory
   when: check_dir.rc == 3
   shell: "cat /tmp/job.xml | {{JENKINS_CLI_PREFIX}} create-job {{item.name}}"
 
-- name: update a directory
-  when: check_job.rc == 0
+- name: Update a Directory
+  when: check_dir.rc == 0
   shell: "cat /tmp/job.xml | {{JENKINS_CLI_PREFIX}} update-job {{item.name}}"
