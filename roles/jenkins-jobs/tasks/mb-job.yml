@@ -9,7 +9,7 @@
 
 - name: Update Job Template
   template:
-    src: mb-mb-job.xml
+    src: mb-job.xml
     dest: /tmp/mb-job.xml
 
 - name: Create a Job
