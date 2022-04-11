@@ -1,4 +1,4 @@
-- name: Check if Job exists
+- name: Check if job exists
   shell: "{{JENKINS_CLI_PREFIX}} get-job {{item.dirName}}{{item.name}}"
   ignore_errors: true
   register: check_job
@@ -7,15 +7,15 @@
   shell: date |md5sum | awk '{print $1}'
   register: uniq_string
 
-- name: update job template
+- name: Update Job Template
   template:
     src: mb-job.xml
     dest: /tmp/job.xml
 
-- name: create a job
+- name: Create a Job
   when: check_job.rc == 3
   shell: "cat /tmp/job.xml | {{JENKINS_CLI_PREFIX}} create-job {{item.dirName}}{{item.name}}"
 
-- name: update a job
+- name: Update a Job
   when: check_job.rc == 0
   shell: "cat /tmp/job.xml | {{JENKINS_CLI_PREFIX}} update-job {{item.dirName}}{{item.name}}"
