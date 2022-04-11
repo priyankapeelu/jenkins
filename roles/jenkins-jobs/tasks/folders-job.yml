@@ -5,7 +5,7 @@
 
 - name: Update Dir Template
   template:
-    src: folders-mb-job.xml
+    src: folders-job.xml
     dest: /tmp/mb-job.xml
 
 - name: Create a Directory
