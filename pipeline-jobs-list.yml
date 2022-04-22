@@ -1,0 +1,2 @@
+PIPELINE_JOBS:
+  - {name: "terraform-vpc", repoName: "terraform-vpc", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
