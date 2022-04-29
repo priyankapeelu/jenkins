@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+
+  stages {
+
+    stage('DB') {
+      steps {
+        dir('DB') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+          sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform destroy -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+        }
+      }
+    }
+
+  }
+
+}
