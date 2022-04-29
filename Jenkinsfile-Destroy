@@ -6,7 +6,7 @@ pipeline {
     stage('DB') {
       steps {
         dir('DB') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+          git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-databases.git'
           sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
