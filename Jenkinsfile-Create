@@ -1,5 +1,3 @@
-
-
 pipeline {
   agent any
 
@@ -8,7 +6,7 @@ pipeline {
     stage('VPC') {
       steps {
         dir('VPC') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-vpc.git'
+          git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-vpc.git'
           sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
@@ -23,7 +21,7 @@ pipeline {
         stage('DB') {
           steps {
             dir('DB') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-databases.git'
               sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
@@ -36,7 +34,7 @@ pipeline {
         stage('ALB') {
           steps {
             dir('ALB') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-loadbalancers.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-loadbalancers.git'
               sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
@@ -54,7 +52,7 @@ pipeline {
         stage('CART') {
           steps {
             dir('CART') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/cart.git'
               sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.2
@@ -69,7 +67,7 @@ pipeline {
         stage('CATALOGUE') {
           steps {
             dir('CATALOGUE') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/catalogue.git'
               sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.0
@@ -84,7 +82,7 @@ pipeline {
         stage('USER') {
           steps {
             dir('USER') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/user.git'
               sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.0
@@ -99,7 +97,7 @@ pipeline {
         stage('PAYMENT') {
           steps {
             dir('PAYMENT') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/payment.git'
               sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.0
@@ -114,7 +112,7 @@ pipeline {
         stage('SHIPPING') {
           steps {
             dir('SHIPPING') {
-              git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/shipping.git'
               sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.0
@@ -132,7 +130,7 @@ pipeline {
     stage('FRONTEND') {
       steps {
         dir('FRONTEND') {
-          git branch: 'main', url: 'https://github.com/raghudevopsb63/frontend.git'
+          git branch: 'main', url: 'https://github.com/priyankapeelu/frontend.git'
           sh '''
             cd terraform-mutable
             export TF_VAR_APP_VERSION=1.0.2
