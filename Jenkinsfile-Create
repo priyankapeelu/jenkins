@@ -1,0 +1,150 @@
+
+
+pipeline {
+  agent any
+
+  stages {
+
+    stage('VPC') {
+      steps {
+        dir('VPC') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-vpc.git'
+          sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+        }
+      }
+    }
+
+    stage('ALB-n-DB') {
+      parallel {
+        stage('DB') {
+          steps {
+            dir('DB') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-databases.git'
+              sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+        stage('ALB') {
+          steps {
+            dir('ALB') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/terraform-loadbalancers.git'
+              sh '''
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+      }
+    }
+
+    stage('Backend') {
+      parallel {
+
+        stage('CART') {
+          steps {
+            dir('CART') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/cart.git'
+              sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.2
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+        stage('CATALOGUE') {
+          steps {
+            dir('CATALOGUE') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/catalogue.git'
+              sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.0
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+        stage('USER') {
+          steps {
+            dir('USER') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/user.git'
+              sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.0
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+        stage('PAYMENT') {
+          steps {
+            dir('PAYMENT') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/payment.git'
+              sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.0
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+        stage('SHIPPING') {
+          steps {
+            dir('SHIPPING') {
+              git branch: 'main', url: 'https://github.com/raghudevopsb63/shipping.git'
+              sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.0
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+            }
+          }
+        }
+
+      }
+    }
+
+    stage('FRONTEND') {
+      steps {
+        dir('FRONTEND') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb63/frontend.git'
+          sh '''
+            cd terraform-mutable
+            export TF_VAR_APP_VERSION=1.0.2
+            terrafile -f env-dev/Terrafile
+            terraform init -backend-config=env-dev/dev-backend.tfvars
+            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+          '''
+        }
+      }
+    }
+
+
+  }
+
+}
