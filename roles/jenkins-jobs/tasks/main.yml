@@ -6,7 +6,6 @@
   loop:
     - {name: "CI-Pipelines", description: "All CI Pipelines"}
     - {name: "Terraform", description: "All Terraform Pipelines"}
-    - {name: "Terraform/mutable", description: "All Terraform Mutable Pipelines"}
 
 - name: Create Jenkins Multi Branch Pipelines
   include_tasks: mb-job.yml
