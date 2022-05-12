@@ -6,7 +6,7 @@ pipeline {
     stage('DB') {
       steps {
         dir('DB') {
-          git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-databases.git'
+          git branch: 'master', url: 'https://github.com/priyankapeelu/terraform-databases.git'
           sh '''
             terrafile -f env-dev/Terrafile
             terraform init -backend-config=env-dev/dev-backend.tfvars
@@ -18,7 +18,7 @@ pipeline {
     stage('ALB') {
           steps {
             dir('ALB') {
-              git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-loadbalancers.git'
+              git branch: 'master', url: 'https://github.com/priyankapeelu/terraform-loadbalancers.git'
               sh '''
                 terrafile -f env-dev/Terrafile
                 terraform init -backend-config=env-dev/dev-backend.tfvars
