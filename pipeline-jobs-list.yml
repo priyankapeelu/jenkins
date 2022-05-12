@@ -1,13 +1,13 @@
 PIPELINE_JOBS:
-  - {name: "terraform-vpc", repoName: "terraform-vpc", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
-  - {name: "terraform-databases", repoName: "terraform-databases", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
-  - {name: "terraform-iam", repoName: "terraform-iam-roles", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
-  - {name: "terraform-loadbalancers", repoName: "terraform-loadbalancers", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile"}
-  - {name: "Terraform-Destroy", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Destroy"}
-  - {name: "Terraform-Create", repoName: "jenkins", dirName: "Terraform/", jenkinsfileName: "Jenkinsfile-Create"}
-  - {name: "cart", repoName: "cart", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
-  - {name: "catalogue", repoName: "catalogue", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
-  - {name: "user", repoName: "user", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
-  - {name: "shipping", repoName: "shipping", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
-  - {name: "payment", repoName: "payment", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
-  - {name: "frontend", repoName: "frontend", dirName: "Terraform/", jenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "terraform-vpc", repoName: "terraform-vpc", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile"}
+  - {name: "terraform-databases", repoName: "terraform-databases", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile"}
+  - {name: "terraform-iam", repoName: "terraform-iam-roles", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile"}
+  - {name: "terraform-loadbalancers", repoName: "terraform-loadbalancers", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile"}
+  - {name: "Terraform-Destroy", repoName: "jenkins", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile-Destroy"}
+  - {name: "Terraform-Create", repoName: "jenkins", dirName: "Terraform/", JenkinsfileName: "Jenkinsfile-Create"}
+  - {name: "cart", repoName: "cart", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "catalogue", repoName: "catalogue", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "user", repoName: "user", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "shipping", repoName: "shipping", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "payment", repoName: "payment", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
+  - {name: "frontend", repoName: "frontend", dirName: "Terraform/", JenkinsfileName: "terraform-mutable/Jenkinsfile"}
