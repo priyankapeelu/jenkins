@@ -15,7 +15,18 @@ pipeline {
         }
       }
     }
-
+    stage('ALB') {
+          steps {
+            dir('ALB') {
+              git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-databases.git'
+              sh '''
+                terrafile -f env-dev/Terrafile
+                terraform init -backend-config=env-dev/dev-backend.tfvars
+                terraform destroy -var-file=env-dev/dev.tfvars -auto-approve
+              '''
+            }
+          }
+         }
   }
 
 }
