@@ -8,9 +8,9 @@ pipeline {
         dir('VPC') {
           git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-vpc.git'
           sh '''
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
         }
       }
@@ -23,9 +23,10 @@ pipeline {
             dir('DB') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-databases.git'
               sh '''
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve || true
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -36,15 +37,29 @@ pipeline {
             dir('ALB') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-loadbalancers.git'
               sh '''
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
+
+        }
+
+          stage('IAM') {
+            steps {
+              dir('IAM') {
+                git branch: 'main', url: 'https://github.com/priyankapeelu/terraform-iam-roles.git'
+                sh '''
+                  terraform init -backend-config=env-prod/prod-backend.tfvars
+                  terraform apply -var-file=env-prod/prod.tfvars -auto-approve
+                '''
+              }
+            }
+          }
+
         }
       }
-    }
 
     stage('Backend') {
       parallel {
@@ -54,11 +69,11 @@ pipeline {
             dir('CART') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/cart.git'
               sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.2
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -69,11 +84,11 @@ pipeline {
             dir('CATALOGUE') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/catalogue.git'
               sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.0
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -84,11 +99,11 @@ pipeline {
             dir('USER') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/user.git'
               sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.0
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -99,11 +114,11 @@ pipeline {
             dir('PAYMENT') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/payment.git'
               sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.0
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -114,11 +129,11 @@ pipeline {
             dir('SHIPPING') {
               git branch: 'main', url: 'https://github.com/priyankapeelu/shipping.git'
               sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.0
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
             }
           }
@@ -132,17 +147,23 @@ pipeline {
         dir('FRONTEND') {
           git branch: 'main', url: 'https://github.com/priyankapeelu/frontend.git'
           sh '''
-            cd terraform-mutable
-            export TF_VAR_APP_VERSION=1.0.2
-            terrafile -f env-dev/Terrafile
-            terraform init -backend-config=env-dev/dev-backend.tfvars
-            terraform apply -var-file=env-dev/dev.tfvars -auto-approve
+            cd terraform-immutable
+            export TF_VAR_APP_VERSION=2.0.0
+            terrafile -f env-prod/Terrafile
+            terraform init -backend-config=env-prod/prod-backend.tfvars
+            terraform apply -var-file=env-prod/prod.tfvars -auto-approve
           '''
         }
       }
     }
 
 
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
   }
 
 }
