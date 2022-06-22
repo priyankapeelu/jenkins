@@ -67,7 +67,7 @@ pipeline {
         stage('CART') {
           steps {
             dir('CART') {
-              git branch: 'main', url: 'https://github.com/priyankapeelucart.git'
+              git branch: 'main', url: 'https://github.com/priyankapeelu/cart.git'
               sh '''
             cd terraform-immutable
             export TF_VAR_APP_VERSION=2.0.0
