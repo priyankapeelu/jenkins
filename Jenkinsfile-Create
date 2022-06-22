@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   stages {
-
+/*
     stage('VPC') {
       steps {
         dir('VPC') {
@@ -60,7 +60,7 @@ pipeline {
 
         }
       }
-
+*/
     stage('Backend') {
       parallel {
 
